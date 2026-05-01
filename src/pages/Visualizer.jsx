@@ -1,13 +1,22 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { Box, Typography, Container, Paper, Grid, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import GuitarNeck from '../components/Guitar/GuitarNeck';
 import PianoKeys from '../components/Piano/PianoKeys';
 import { NOTES, SCALES, TUNINGS, getScaleNotes, getFretboardNotes } from '../utils/musicLogic';
+import * as Tone from 'tone';
 
 const Visualizer = () => {
   const [root, setRoot] = useState('C');
   const [scaleType, setScaleType] = useState('major');
   const [tuningKey, setTuningKey] = useState('standard');
+
+  // Inicializar sintetizador
+  const synth = useMemo(() => new Tone.PolySynth(Tone.Synth).toDestination(), []);
+
+  const playNote = useCallback(async (note) => {
+    await Tone.start(); // Necesario para desbloquear el audio en navegadores
+    synth.triggerAttackRelease(note, "8n");
+  }, [synth]);
   const [totalFrets] = useState(15);
 
   const tuning = useMemo(() => TUNINGS[tuningKey].notes, [tuningKey]);
@@ -145,6 +154,7 @@ const Visualizer = () => {
                   frets={totalFrets}
                   tuning={tuning}
                   selectedNotes={fretboardNotes}
+                  onNoteClick={playNote}
                 />
               </Box>
             </Paper>
@@ -161,7 +171,7 @@ const Visualizer = () => {
             }}>
               <Typography variant="h5" fontWeight="700" sx={{ color: '#FF8C00', mb: 3, textShadow: '0 0 10px rgba(255,140,0,0.3)' }} gutterBottom>Teclado de Piano</Typography>
               <Box sx={{ display: 'block', width: '100%' }}>
-                <PianoKeys selectedNotes={scaleNotes} />
+                <PianoKeys selectedNotes={scaleNotes} onNoteClick={playNote} />
               </Box>
             </Paper>
           </Grid>

@@ -94,7 +94,8 @@ const FretMarker = styled(Box)(({ theme }) => ({
 const GuitarNeck = ({
   frets = 15,
   tuning = ['E', 'B', 'G', 'D', 'A', 'E'],
-  selectedNotes = [] // [{ string: 0, fret: 5, label: 'A' }]
+  selectedNotes = [], // [{ string: 0, fret: 5, label: 'A', fullNote: 'A4' }]
+  onNoteClick
 }) => {
   const strings = [0, 1, 2, 3, 4, 5]; // 0 es la más fina (E alta)
 
@@ -145,6 +146,7 @@ const GuitarNeck = ({
           <NoteMarker
             key={i}
             isRoot={note.isRoot}
+            onClick={() => onNoteClick && onNoteClick(note.fullNote)}
             sx={{
               left: `${(note.fret * (100 / (frets + 1))) + (50 / (frets + 1))}%`,
               top: `${10 + note.string * (80 / (strings.length - 1))}%`,

@@ -74,7 +74,7 @@ const BlackKey = styled(Box, {
   border: isRoot ? '2px solid white' : 'none',
 }));
 
-const PianoKeys = ({ selectedNotes = [] }) => {
+const PianoKeys = ({ selectedNotes = [], onNoteClick }) => {
   const baseNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
   const octaves = 2;
 
@@ -84,6 +84,7 @@ const PianoKeys = ({ selectedNotes = [] }) => {
     baseNotes.forEach(note => {
       allKeys.push({
         note,
+        fullNote: `${note}${3 + o}`,
         isBlack: note.includes('#'),
         isActive: selectedNotes.includes(note),
         isRoot: selectedNotes[0] === note
@@ -106,6 +107,7 @@ const PianoKeys = ({ selectedNotes = [] }) => {
                 key={index}
                 isActive={key.isActive}
                 isRoot={key.isRoot}
+                onClick={() => onNoteClick && onNoteClick(key.fullNote)}
               >
                 <Typography variant="caption" sx={{ fontWeight: 'bold' }}>
                   {key.note}
@@ -135,6 +137,7 @@ const PianoKeys = ({ selectedNotes = [] }) => {
                 style={{ left: `${leftPos}px` }}
                 isActive={key.isActive}
                 isRoot={key.isRoot}
+                onClick={() => onNoteClick && onNoteClick(key.fullNote)}
               >
                 <Typography variant="caption" sx={{ fontSize: '0.6rem' }}>
                   {key.note}

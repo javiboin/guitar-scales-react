@@ -92,11 +92,24 @@ export const getScaleNotes = (root, scaleType) => {
 };
 
 /**
- * Retorna el nombre de la nota en un traste específico de una cuerda.
+ * Mapeo de octavas base para afinación standard (E4, B3, G3, D3, A2, E2)
  */
-export const getNoteAt = (stringRoot, fret) => {
+const BASE_OCTAVES = [4, 3, 3, 3, 2, 2];
+
+/**
+ * Retorna el nombre de la nota y su octava en un traste específico de una cuerda.
+ */
+export const getNoteAt = (stringRoot, fret, stringIndex = 0) => {
   const rootIndex = NOTES.indexOf(stringRoot);
-  return NOTES[(rootIndex + fret) % 12];
+  const totalSemitones = rootIndex + fret;
+  const noteName = NOTES[totalSemitones % 12];
+  
+  // Calculamos la octava. Cada 12 semitonos sube una octava.
+  // Usamos el stringIndex para determinar la octava base si está disponible.
+  const baseOctave = BASE_OCTAVES[stringIndex] || 3;
+  const octave = baseOctave + Math.floor(totalSemitones / 12);
+  
+  return { noteName, octave, fullNote: `${noteName}${octave}` };
 };
 
 /**
@@ -107,13 +120,14 @@ export const getFretboardNotes = (tuning, totalFrets, scaleNotes) => {
 
   tuning.forEach((stringRoot, stringIndex) => {
     for (let fret = 0; fret <= totalFrets; fret++) {
-      const note = getNoteAt(stringRoot, fret);
-      if (scaleNotes.includes(note)) {
+      const { noteName, fullNote } = getNoteAt(stringRoot, fret, stringIndex);
+      if (scaleNotes.includes(noteName)) {
         positions.push({
           string: stringIndex,
           fret,
-          label: note,
-          isRoot: note === scaleNotes[0]
+          label: noteName,
+          fullNote, // Útil para el sonido
+          isRoot: noteName === scaleNotes[0]
         });
       }
     }
