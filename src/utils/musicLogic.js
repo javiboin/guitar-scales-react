@@ -43,6 +43,29 @@ export const SCALES = {
   },
 };
 
+export const TUNINGS = {
+  standard: {
+    name: 'Standard (E)',
+    notes: ['E', 'B', 'G', 'D', 'A', 'E'],
+  },
+  dropD: {
+    name: 'Drop D',
+    notes: ['E', 'B', 'G', 'D', 'A', 'D'],
+  },
+  halfStepDown: {
+    name: 'Half-step Down (Eb)',
+    notes: ['D#', 'A#', 'F#', 'C#', 'G#', 'D#'],
+  },
+  dadgad: {
+    name: 'DADGAD',
+    notes: ['D', 'A', 'G', 'D', 'A', 'D'],
+  },
+  openG: {
+    name: 'Open G',
+    notes: ['D', 'B', 'G', 'D', 'G', 'D'],
+  },
+};
+
 /**
  * Retorna las notas de una escala a partir de una tónica y un tipo.
  */

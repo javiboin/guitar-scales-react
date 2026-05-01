@@ -104,7 +104,23 @@ const GuitarNeck = ({
 
         {/* Strings */}
         {strings.map((s, i) => (
-          <StringLine key={s} top={(i + 1) * (100 / (strings.length + 1))} />
+          <Box key={s}>
+            <StringLine top={(i + 1) * (100 / (strings.length + 1))} />
+            <Box 
+              sx={{ 
+                position: 'absolute', 
+                left: '10px', 
+                top: `${(i + 1) * (100 / (strings.length + 1))}%`,
+                transform: 'translateY(-50%)',
+                color: 'rgba(255,255,255,0.7)',
+                fontSize: '0.8rem',
+                fontWeight: 'bold',
+                zIndex: 4
+              }}
+            >
+              {tuning[s]}
+            </Box>
+          </Box>
         ))}
 
         {/* Selected Notes */}
