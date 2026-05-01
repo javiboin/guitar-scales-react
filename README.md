@@ -11,7 +11,7 @@ Una aplicación web **Premium** e interactiva diseñada para músicos y estudian
 
 ## 🚀 Demo
 Puedes ver la aplicación en funcionamiento aquí:
-👉 **[Ver Demo en Vivo](https://guitar-scales-demo.vercel.app)** *(Enlace disponible próximamente)*
+👉 **[Ver Demo en Vivo](https://guitar-scales-javiboin.netlify.app/)**
 
 ---
 
