@@ -1,4 +1,5 @@
 import { Box, Typography, Container, Paper, Grid } from '@mui/material';
+import GuitarNeck from '../components/Guitar/GuitarNeck';
 
 const Visualizer = () => {
   return (
@@ -20,11 +21,16 @@ const Visualizer = () => {
 
         {/* Neck de Guitarra */}
         <Grid item xs={12}>
-          <Paper sx={{ p: 2, minHeight: 200 }}>
+          <Paper sx={{ p: 2, minHeight: 200, overflow: 'hidden' }}>
             <Typography variant="h6" gutterBottom>Mástil de Guitarra</Typography>
-            <Box sx={{ height: 150, bgcolor: 'grey.900', borderRadius: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-              [ Componente GuitarNeck ]
-            </Box>
+            <GuitarNeck 
+              selectedNotes={[
+                { string: 0, fret: 5, label: 'A' },
+                { string: 1, fret: 5, label: 'E' },
+                { string: 2, fret: 5, label: 'C' },
+                { string: 3, fret: 5, label: 'G' },
+              ]}
+            />
           </Paper>
         </Grid>
 
