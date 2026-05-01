@@ -48,6 +48,10 @@ export const TUNINGS = {
     name: 'Standard (E)',
     notes: ['E', 'B', 'G', 'D', 'A', 'E'],
   },
+  standardC: {
+    name: 'Standard (C)',
+    notes: ['C', 'F', 'A#', 'D#', 'G', 'C'],
+  },
   dropD: {
     name: 'Drop D',
     notes: ['E', 'B', 'G', 'D', 'A', 'D'],
@@ -77,7 +81,7 @@ export const getScaleNotes = (root, scaleType) => {
   if (currentIndex === -1) return [];
 
   const notes = [NOTES[currentIndex]];
-  
+
   // No recorremos el último intervalo porque vuelve a la octava
   for (let i = 0; i < scale.intervals.length - 1; i++) {
     currentIndex = (currentIndex + scale.intervals[i]) % 12;
