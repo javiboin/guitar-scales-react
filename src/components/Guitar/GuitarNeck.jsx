@@ -45,11 +45,13 @@ const FretLine = styled(Box)(({ isNut }) => ({
   zIndex: 2,
 }));
 
-const NoteMarker = styled(Box)(({ theme, color = 'primary.main' }) => ({
+const NoteMarker = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'isRoot',
+})(({ theme, isRoot }) => ({
   width: '24px',
   height: '24px',
   borderRadius: '50%',
-  backgroundColor: color === 'primary.main' ? theme.palette.primary.main : color,
+  backgroundColor: isRoot ? theme.palette.secondary.main : theme.palette.primary.main,
   color: 'white',
   display: 'flex',
   alignItems: 'center',
@@ -60,6 +62,7 @@ const NoteMarker = styled(Box)(({ theme, color = 'primary.main' }) => ({
   transform: 'translate(-50%, -50%)',
   zIndex: 3,
   boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+  border: isRoot ? '2px solid white' : 'none',
 }));
 
 const FretMarker = styled(Box)(({ theme }) => ({
@@ -108,6 +111,7 @@ const GuitarNeck = ({
         {selectedNotes.map((note, i) => (
           <NoteMarker
             key={i}
+            isRoot={note.isRoot}
             sx={{
               left: `${(note.fret * (100 / (frets + 1))) + (50 / (frets + 1))}%`,
               top: `${(note.string + 1) * (100 / (strings.length + 1))}%`,
