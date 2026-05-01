@@ -20,20 +20,21 @@ const Visualizer = () => {
 
   return (
     <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-      <Typography variant="h4" gutterBottom fontWeight="bold">
-        Explorador de Escalas
+      <Typography variant="h3" gutterBottom fontWeight="800" align="center" sx={{ mb: 6, background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+        Guitar Scale Explorer
       </Typography>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={4} justifyContent="center" alignItems="center">
         {/* Selector de Escalas y Afinación */}
         <Grid item xs={12}>
-          <Paper sx={{ p: 2, display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
-            <FormControl sx={{ minWidth: 100 }}>
+          <Paper elevation={3} sx={{ p: 3, display: 'flex', gap: 3, alignItems: 'center', flexWrap: 'wrap', borderRadius: 4, background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(10px)' }}>
+            <FormControl variant="outlined" sx={{ minWidth: 140 }}>
               <InputLabel>Tónica</InputLabel>
               <Select
                 value={root}
                 label="Tónica"
                 onChange={(e) => setRoot(e.target.value)}
+                sx={{ borderRadius: 2 }}
               >
                 {NOTES.map((n) => (
                   <MenuItem key={n} value={n}>{n}</MenuItem>
@@ -41,12 +42,13 @@ const Visualizer = () => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ minWidth: 180 }}>
+            <FormControl variant="outlined" sx={{ minWidth: 200 }}>
               <InputLabel>Escala</InputLabel>
               <Select
                 value={scaleType}
                 label="Escala"
                 onChange={(e) => setScaleType(e.target.value)}
+                sx={{ borderRadius: 2 }}
               >
                 {Object.entries(SCALES).map(([key, value]) => (
                   <MenuItem key={key} value={key}>{value.name}</MenuItem>
@@ -54,12 +56,13 @@ const Visualizer = () => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ minWidth: 180 }}>
+            <FormControl variant="outlined" sx={{ minWidth: 200 }}>
               <InputLabel>Afinación</InputLabel>
               <Select
                 value={tuningKey}
                 label="Afinación"
                 onChange={(e) => setTuningKey(e.target.value)}
+                sx={{ borderRadius: 2 }}
               >
                 {Object.entries(TUNINGS).map(([key, value]) => (
                   <MenuItem key={key} value={key}>{value.name}</MenuItem>
@@ -67,18 +70,21 @@ const Visualizer = () => {
               </Select>
             </FormControl>
 
-            <Box sx={{ ml: { md: 'auto' }, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+            <Box sx={{ ml: { md: 'auto' }, display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
               {scaleNotes.map((note, i) => (
                 <Paper
                   key={i}
-                  elevation={0}
+                  elevation={2}
                   sx={{
-                    px: 1.5,
-                    py: 0.5,
+                    px: 2,
+                    py: 1,
                     bgcolor: i === 0 ? 'secondary.main' : 'primary.main',
                     color: 'white',
-                    borderRadius: 1,
-                    fontWeight: 'bold'
+                    borderRadius: 2,
+                    fontWeight: '800',
+                    boxShadow: i === 0 ? '0 0 15px rgba(233, 30, 99, 0.4)' : 'none',
+                    transition: 'transform 0.2s',
+                    '&:hover': { transform: 'translateY(-3px)' }
                   }}
                 >
                   {note}
@@ -90,26 +96,32 @@ const Visualizer = () => {
 
         {/* Neck de Guitarra */}
         <Grid item xs={12}>
-          <Paper sx={{ p: 2, minHeight: 200, overflow: 'hidden' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-              <Typography variant="h6">Mástil de Guitarra</Typography>
-              <Typography variant="body2" color="text.secondary">
-                Afinación: {TUNINGS[tuningKey].notes.join(' - ')}
-              </Typography>
+          <Paper elevation={4} sx={{ p: 4, borderRadius: 4, overflow: 'hidden', background: '#f5f6fa' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+              <Typography variant="h5" fontWeight="700" color="primary">Mástil de Guitarra</Typography>
+              <Box sx={{ px: 2, py: 0.5, bgcolor: 'rgba(0,0,0,0.05)', borderRadius: 10 }}>
+                <Typography variant="subtitle2" fontWeight="600" color="text.secondary">
+                  Afinación: {TUNINGS[tuningKey].notes.join(' - ')}
+                </Typography>
+              </Box>
             </Box>
-            <GuitarNeck
-              frets={totalFrets}
-              tuning={tuning}
-              selectedNotes={fretboardNotes}
-            />
+            <Box sx={{ display: 'block', width: '100%' }}>
+              <GuitarNeck
+                frets={totalFrets}
+                tuning={tuning}
+                selectedNotes={fretboardNotes}
+              />
+            </Box>
           </Paper>
         </Grid>
 
         {/* Teclado de Piano */}
         <Grid item xs={12}>
-          <Paper sx={{ p: 2, minHeight: 150 }}>
-            <Typography variant="h6" gutterBottom>Teclado de Piano</Typography>
-            <PianoKeys selectedNotes={scaleNotes} />
+          <Paper elevation={4} sx={{ p: 4, borderRadius: 4, background: '#f5f6fa' }}>
+            <Typography variant="h5" fontWeight="700" color="primary" gutterBottom sx={{ mb: 3 }}>Teclado de Piano</Typography>
+            <Box sx={{ display: 'block', width: '100%' }}>
+              <PianoKeys selectedNotes={scaleNotes} />
+            </Box>
           </Paper>
         </Grid>
       </Grid>
@@ -118,3 +130,4 @@ const Visualizer = () => {
 };
 
 export default Visualizer;
+

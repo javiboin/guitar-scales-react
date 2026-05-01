@@ -3,12 +3,14 @@ import { Box, styled } from '@mui/material';
 const NeckContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   overflowX: 'auto',
-  backgroundColor: '#3d2b1f', // Color madera oscura
+  background: 'linear-gradient(90deg, #3d2b1f 0%, #4e3629 50%, #3d2b1f 100%)', // Gradiente de madera premium
   borderRadius: theme.shape.borderRadius,
-  padding: '20px 0',
+  padding: '15px 0',
   position: 'relative',
-  boxShadow: 'inset 0 0 50px rgba(0,0,0,0.5)',
+  boxShadow: '0 10px 30px rgba(0,0,0,0.3), inset 0 0 100px rgba(0,0,0,0.4)',
   userSelect: 'none',
+  display: 'block',
+  margin: '20px 0',
   '&::-webkit-scrollbar': {
     height: '8px',
   },
@@ -21,8 +23,8 @@ const NeckContainer = styled(Box)(({ theme }) => ({
 const Fretboard = styled(Box)(({ frets = 22 }) => ({
   display: 'grid',
   gridTemplateColumns: `40px repeat(${frets}, 1fr)`,
-  width: '120%',
-  minWidth: `${frets * 40 + 40}px`, // Un mínimo para que no se amontone en móvil
+  width: '100%',
+  minWidth: `${frets * 40 + 40}px`,
   height: '180px',
   position: 'relative',
 }));
@@ -33,49 +35,60 @@ const StringLine = styled(Box)(({ top }) => ({
   right: 0,
   top: `${top}%`,
   height: '2px',
-  background: 'linear-gradient(to bottom, #bdc3c7, #2c3e50)',
-  boxShadow: '0 1px 2px rgba(0,0,0,0.5)',
+  background: 'linear-gradient(to bottom, #dcdde1, #7f8c8d)',
+  boxShadow: '0 1px 3px rgba(0,0,0,0.4)',
   zIndex: 1,
 }));
 
 const FretLine = styled(Box)(({ isNut }) => ({
   gridRow: '1 / -1',
-  borderLeft: isNut ? '8px solid #ecf0f1' : '3px solid #95a5a6',
+  borderLeft: isNut ? '8px solid #f1f2f6' : '2px solid #a4b0be',
   height: '200%',
   position: 'relative',
   zIndex: 2,
+  opacity: 0.8,
 }));
 
 const NoteMarker = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'isRoot',
 })(({ theme, isRoot }) => ({
-  width: '24px',
-  height: '24px',
+  width: '26px',
+  height: '26px',
   borderRadius: '50%',
   backgroundColor: isRoot ? theme.palette.secondary.main : theme.palette.primary.main,
   color: 'white',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  fontSize: '0.75rem',
+  fontSize: '0.7rem',
   fontWeight: 'bold',
   position: 'absolute',
   transform: 'translate(-50%, -50%)',
-  zIndex: 3,
-  boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
-  border: isRoot ? '2px solid white' : 'none',
+  zIndex: 10,
+  boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
+  border: isRoot ? '2px solid white' : '1px solid rgba(255,255,255,0.3)',
+  opacity: 0.85,
+  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+  cursor: 'pointer',
+  '&:hover': {
+    opacity: 1,
+    transform: 'translate(-50%, -50%) scale(1.25)',
+    boxShadow: `0 0 15px ${isRoot ? theme.palette.secondary.main : theme.palette.primary.main}`,
+    zIndex: 11,
+  },
 }));
 
 const FretMarker = styled(Box)(({ theme }) => ({
-  width: '10px',
-  height: '10px',
+  width: '12px',
+  height: '12px',
   borderRadius: '50%',
-  backgroundColor: 'rgba(255,255,255,0.2)',
+  backgroundColor: 'rgba(255,255,255,0.15)',
   position: 'absolute',
   left: '50%',
   top: '50%',
   transform: 'translate(-50%, -50%)',
   zIndex: 0,
+  boxShadow: 'inset 0 0 5px rgba(0,0,0,0.5)',
 }));
 
 const GuitarNeck = ({
