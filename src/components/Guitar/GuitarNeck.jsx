@@ -21,7 +21,8 @@ const NeckContainer = styled(Box)(({ theme }) => ({
 const Fretboard = styled(Box)(({ frets = 22 }) => ({
   display: 'grid',
   gridTemplateColumns: `40px repeat(${frets}, 1fr)`,
-  minWidth: `${frets * 50 + 40}px`,
+  width: '120%',
+  minWidth: `${frets * 40 + 40}px`, // Un mínimo para que no se amontone en móvil
   height: '180px',
   position: 'relative',
 }));
@@ -40,7 +41,7 @@ const StringLine = styled(Box)(({ top }) => ({
 const FretLine = styled(Box)(({ isNut }) => ({
   gridRow: '1 / -1',
   borderLeft: isNut ? '8px solid #ecf0f1' : '3px solid #95a5a6',
-  height: '100%',
+  height: '200%',
   position: 'relative',
   zIndex: 2,
 }));
@@ -77,8 +78,8 @@ const FretMarker = styled(Box)(({ theme }) => ({
   zIndex: 0,
 }));
 
-const GuitarNeck = ({ 
-  frets = 15, 
+const GuitarNeck = ({
+  frets = 15,
   tuning = ['E', 'B', 'G', 'D', 'A', 'E'],
   selectedNotes = [] // [{ string: 0, fret: 5, label: 'A' }]
 }) => {
@@ -103,25 +104,28 @@ const GuitarNeck = ({
         ))}
 
         {/* Strings */}
-        {strings.map((s, i) => (
-          <Box key={s}>
-            <StringLine top={(i + 1) * (100 / (strings.length + 1))} />
-            <Box 
-              sx={{ 
-                position: 'absolute', 
-                left: '10px', 
-                top: `${(i + 1) * (100 / (strings.length + 1))}%`,
-                transform: 'translateY(-50%)',
-                color: 'rgba(255,255,255,0.7)',
-                fontSize: '0.8rem',
-                fontWeight: 'bold',
-                zIndex: 4
-              }}
-            >
-              {tuning[s]}
+        {strings.map((s, i) => {
+          const topPosition = 10 + i * (80 / (strings.length - 1));
+          return (
+            <Box key={s}>
+              <StringLine top={topPosition} />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  left: '10px',
+                  top: `${topPosition}%`,
+                  transform: 'translateY(-50%)',
+                  color: 'rgba(255,255,255,0.7)',
+                  fontSize: '0.8rem',
+                  fontWeight: 'bold',
+                  zIndex: 4
+                }}
+              >
+                {tuning[s]}
+              </Box>
             </Box>
-          </Box>
-        ))}
+          );
+        })}
 
         {/* Selected Notes */}
         {selectedNotes.map((note, i) => (
@@ -130,7 +134,7 @@ const GuitarNeck = ({
             isRoot={note.isRoot}
             sx={{
               left: `${(note.fret * (100 / (frets + 1))) + (50 / (frets + 1))}%`,
-              top: `${(note.string + 1) * (100 / (strings.length + 1))}%`,
+              top: `${10 + note.string * (80 / (strings.length - 1))}%`,
             }}
           >
             {note.label}
