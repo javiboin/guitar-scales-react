@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline, Box } from '@mui/material';
 import Navbar from './components/Layout/Navbar';
 import Home from './pages/Home';
 import Visualizer from './pages/Visualizer';
+import Footer from './components/Layout/Footer';
 
 const theme = createTheme({
   palette: {
@@ -38,11 +39,16 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/visualizer" element={<Visualizer />} />
-        </Routes>
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+          <Navbar />
+          <Box component="main" sx={{ flexGrow: 1 }}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/visualizer" element={<Visualizer />} />
+            </Routes>
+          </Box>
+          <Footer />
+        </Box>
       </Router>
     </ThemeProvider>
   );
