@@ -20,21 +20,39 @@ const Visualizer = () => {
 
   return (
     <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-      <Typography variant="h3" gutterBottom fontWeight="800" align="center" sx={{ mb: 6, background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+      <Typography variant="h3" gutterBottom fontWeight="800" align="center" 
+        sx={{ 
+          mb: 6, 
+          background: 'linear-gradient(45deg, #FF8C00 30%, #FFD700 90%)', 
+          WebkitBackgroundClip: 'text', 
+          WebkitTextFillColor: 'transparent',
+          textShadow: '0 0 20px rgba(255, 140, 0, 0.3)'
+        }}>
         Guitar Scale Explorer
       </Typography>
 
       <Grid container spacing={4} justifyContent="center" alignItems="center">
         {/* Selector de Escalas y Afinación */}
         <Grid item xs={12}>
-          <Paper elevation={3} sx={{ p: 3, display: 'flex', gap: 3, alignItems: 'center', flexWrap: 'wrap', borderRadius: 4, background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(10px)' }}>
+          <Paper elevation={8} sx={{ 
+            p: 3, 
+            display: 'flex', 
+            gap: 3, 
+            alignItems: 'center', 
+            flexWrap: 'wrap', 
+            borderRadius: 4, 
+            background: 'rgba(30, 30, 30, 0.8)', 
+            backdropFilter: 'blur(15px)',
+            border: '1px solid rgba(255, 140, 0, 0.2)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.5)'
+          }}>
             <FormControl variant="outlined" sx={{ minWidth: 140 }}>
-              <InputLabel>Tónica</InputLabel>
+              <InputLabel sx={{ color: '#FF8C00' }}>Tónica</InputLabel>
               <Select
                 value={root}
                 label="Tónica"
                 onChange={(e) => setRoot(e.target.value)}
-                sx={{ borderRadius: 2 }}
+                sx={{ borderRadius: 2, '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,140,0,0.3)' } }}
               >
                 {NOTES.map((n) => (
                   <MenuItem key={n} value={n}>{n}</MenuItem>
@@ -43,12 +61,12 @@ const Visualizer = () => {
             </FormControl>
 
             <FormControl variant="outlined" sx={{ minWidth: 200 }}>
-              <InputLabel>Escala</InputLabel>
+              <InputLabel sx={{ color: '#FF8C00' }}>Escala</InputLabel>
               <Select
                 value={scaleType}
                 label="Escala"
                 onChange={(e) => setScaleType(e.target.value)}
-                sx={{ borderRadius: 2 }}
+                sx={{ borderRadius: 2, '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,140,0,0.3)' } }}
               >
                 {Object.entries(SCALES).map(([key, value]) => (
                   <MenuItem key={key} value={key}>{value.name}</MenuItem>
@@ -57,12 +75,12 @@ const Visualizer = () => {
             </FormControl>
 
             <FormControl variant="outlined" sx={{ minWidth: 200 }}>
-              <InputLabel>Afinación</InputLabel>
+              <InputLabel sx={{ color: '#FF8C00' }}>Afinación</InputLabel>
               <Select
                 value={tuningKey}
                 label="Afinación"
                 onChange={(e) => setTuningKey(e.target.value)}
-                sx={{ borderRadius: 2 }}
+                sx={{ borderRadius: 2, '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,140,0,0.3)' } }}
               >
                 {Object.entries(TUNINGS).map(([key, value]) => (
                   <MenuItem key={key} value={key}>{value.name}</MenuItem>
@@ -74,7 +92,7 @@ const Visualizer = () => {
               {scaleNotes.map((note, i) => (
                 <Paper
                   key={i}
-                  elevation={2}
+                  elevation={4}
                   sx={{
                     px: 2,
                     py: 1,
@@ -82,9 +100,13 @@ const Visualizer = () => {
                     color: 'white',
                     borderRadius: 2,
                     fontWeight: '800',
-                    boxShadow: i === 0 ? '0 0 15px rgba(233, 30, 99, 0.4)' : 'none',
-                    transition: 'transform 0.2s',
-                    '&:hover': { transform: 'translateY(-3px)' }
+                    boxShadow: i === 0 ? '0 0 15px rgba(244, 67, 54, 0.6)' : '0 0 10px rgba(76, 175, 80, 0.2)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    transition: 'all 0.2s',
+                    '&:hover': { 
+                      transform: 'translateY(-3px)', 
+                      boxShadow: i === 0 ? '0 5px 20px rgba(244, 67, 54, 0.8)' : '0 5px 15px rgba(76, 175, 80, 0.6)' 
+                    }
                   }}
                 >
                   {note}
@@ -96,11 +118,18 @@ const Visualizer = () => {
 
         {/* Neck de Guitarra */}
         <Grid item xs={12}>
-          <Paper elevation={4} sx={{ p: 4, borderRadius: 4, overflow: 'hidden', background: '#f5f6fa' }}>
+          <Paper elevation={12} sx={{ 
+            p: 4, 
+            borderRadius: 4, 
+            overflow: 'hidden', 
+            background: '#121212',
+            border: '1px solid rgba(255, 140, 0, 0.1)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.6)'
+          }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-              <Typography variant="h5" fontWeight="700" color="primary">Mástil de Guitarra</Typography>
-              <Box sx={{ px: 2, py: 0.5, bgcolor: 'rgba(0,0,0,0.05)', borderRadius: 10 }}>
-                <Typography variant="subtitle2" fontWeight="600" color="text.secondary">
+              <Typography variant="h5" fontWeight="700" sx={{ color: '#FF8C00', textShadow: '0 0 10px rgba(255,140,0,0.3)' }}>Mástil de Guitarra</Typography>
+              <Box sx={{ px: 2, py: 0.5, bgcolor: 'rgba(255,140,0,0.1)', borderRadius: 10, border: '1px solid rgba(255,140,0,0.2)' }}>
+                <Typography variant="subtitle2" fontWeight="600" sx={{ color: '#FF8C00' }}>
                   Afinación: {TUNINGS[tuningKey].notes.join(' - ')}
                 </Typography>
               </Box>
@@ -117,8 +146,14 @@ const Visualizer = () => {
 
         {/* Teclado de Piano */}
         <Grid item xs={12}>
-          <Paper elevation={4} sx={{ p: 4, borderRadius: 4, background: '#f5f6fa' }}>
-            <Typography variant="h5" fontWeight="700" color="primary" gutterBottom sx={{ mb: 3 }}>Teclado de Piano</Typography>
+          <Paper elevation={12} sx={{ 
+            p: 4, 
+            borderRadius: 4, 
+            background: '#121212',
+            border: '1px solid rgba(255, 140, 0, 0.1)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.6)'
+          }}>
+            <Typography variant="h5" fontWeight="700" sx={{ color: '#FF8C00', mb: 3, textShadow: '0 0 10px rgba(255,140,0,0.3)' }} gutterBottom>Teclado de Piano</Typography>
             <Box sx={{ display: 'block', width: '100%' }}>
               <PianoKeys selectedNotes={scaleNotes} />
             </Box>
@@ -130,4 +165,5 @@ const Visualizer = () => {
 };
 
 export default Visualizer;
+
 

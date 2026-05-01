@@ -31,8 +31,8 @@ const WhiteKey = styled(Box, {
 })(({ theme, isActive, isRoot }) => ({
   width: '45px',
   height: '100%',
-  backgroundColor: isRoot ? theme.palette.secondary.light : (isActive ? theme.palette.primary.light : '#fff'),
-  border: '1px solid #ccc',
+  backgroundColor: isRoot ? theme.palette.secondary.light : (isActive ? theme.palette.primary.light : '#e0e0e0'),
+  border: '1px solid #474646ff',
   borderRadius: '0 0 4px 4px',
   zIndex: 1,
   display: 'flex',
@@ -40,9 +40,9 @@ const WhiteKey = styled(Box, {
   justifyContent: 'center',
   paddingBottom: '10px',
   cursor: 'pointer',
-  transition: 'background-color 0.2s',
+  transition: 'all 0.2s',
   '&:hover': {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#d0d0d0',
   },
   ...(isRoot && {
     backgroundColor: theme.palette.secondary.main,
@@ -77,7 +77,7 @@ const BlackKey = styled(Box, {
 const PianoKeys = ({ selectedNotes = [] }) => {
   const baseNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
   const octaves = 2;
-  
+
   // Generamos todas las teclas para las octavas deseadas
   const allKeys = [];
   for (let o = 0; o < octaves; o++) {
@@ -94,7 +94,7 @@ const PianoKeys = ({ selectedNotes = [] }) => {
   // Para el renderizado, separamos blancas de negras
   // Pero necesitamos saber la posición X de las negras basada en las blancas
   let whiteKeyCount = 0;
-  
+
   return (
     <PianoContainer>
       <KeysWrapper>
@@ -102,9 +102,9 @@ const PianoKeys = ({ selectedNotes = [] }) => {
           if (!key.isBlack) {
             const currentWhiteIndex = whiteKeyCount++;
             return (
-              <WhiteKey 
-                key={index} 
-                isActive={key.isActive} 
+              <WhiteKey
+                key={index}
+                isActive={key.isActive}
                 isRoot={key.isRoot}
               >
                 <Typography variant="caption" sx={{ fontWeight: 'bold' }}>
@@ -124,14 +124,14 @@ const PianoKeys = ({ selectedNotes = [] }) => {
               wCount++;
               return null;
             }
-            
+
             // Posición de la tecla negra: entre la tecla blanca actual y la siguiente
             // Excepto después de E y B
             const leftPos = wCount * 45;
-            
+
             return (
-              <BlackKey 
-                key={index} 
+              <BlackKey
+                key={index}
                 style={{ left: `${leftPos}px` }}
                 isActive={key.isActive}
                 isRoot={key.isRoot}
