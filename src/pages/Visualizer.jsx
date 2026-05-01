@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Box, Typography, Container, Paper, Grid, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import GuitarNeck from '../components/Guitar/GuitarNeck';
+import PianoKeys from '../components/Piano/PianoKeys';
 import { NOTES, SCALES, getScaleNotes, getFretboardNotes } from '../utils/musicLogic';
 
 const Visualizer = () => {
@@ -86,9 +87,7 @@ const Visualizer = () => {
         <Grid item xs={12} md={8}>
           <Paper sx={{ p: 2, minHeight: 150 }}>
             <Typography variant="h6" gutterBottom>Teclado de Piano</Typography>
-            <Box sx={{ height: 100, bgcolor: 'grey.100', borderRadius: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'text.secondary' }}>
-              [ Componente PianoKeys ]
-            </Box>
+            <PianoKeys selectedNotes={scaleNotes} />
           </Paper>
         </Grid>
 
