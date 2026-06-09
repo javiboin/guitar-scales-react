@@ -67,8 +67,3 @@ Desarrollado por **Javier Alejandro Oyarzo** (javiboin).
 - GitHub: [@javiboin](https://github.com/javiboin)
 - LinkedIn: [Javier Alejandro Oyarzo](https://www.linkedin.com/in/javier-alejandro-oyarzo-7110aa138/)
 
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT.
