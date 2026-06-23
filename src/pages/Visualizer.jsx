@@ -28,25 +28,15 @@ const Visualizer = () => {
 
   return (
     <Box sx={{
-      minHeight: 'calc(100vh - 64px)', // Restamos la altura de la Navbar
+      minHeight: 'calc(20vh - 64px)', // Restamos la altura de la Navbar
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center',
+      alignItems: 'center',
       py: 4
     }}>
       <Container maxWidth="xl">
-        <Typography variant="h3" gutterBottom fontWeight="800" align="center"
-          sx={{
-            mb: 6,
-            background: 'linear-gradient(45deg, #FF8C00 30%, #FFD700 90%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            textShadow: '0 0 20px rgba(255, 140, 0, 0.3)'
-          }}>
-          Guitar Scale Explorer
-        </Typography>
 
-        <Grid container spacing={4} justifyContent="center" alignItems="center">
+        <Grid container spacing={4} justifyContent="center">
           {/* Selector de Escalas y Afinación */}
           <Grid item xs={12}>
             <Paper elevation={8} sx={{
